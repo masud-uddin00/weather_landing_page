@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Weather Forecast</title>
+    
+    <!-- Load Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    
+    <!-- Load Bootstrap Icons (Used for the SVG icons) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        /* Custom colors based on the original design */
+        :root {
+            --primary-blue: #4F46E5;
+            --soft-pink: #F7D4E7;
+            --soft-blue: #D4E7F7;
+            --bs-body-color: #333; /* Darker text for better contrast */
+            --bs-body-bg: #f8f9fa;
+        }
+
+        /* Custom styles for the gradient background and floating shapes */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0e6ff 0%, #d1f1ff 100%);
+            min-height: 100vh;
+        }
+
+        .hero-section {
+            /* Mimics the soft pink/blue gradient and Glassmorphism */
+            background: linear-gradient(135deg, rgba(247, 212, 231, 0.7) 0%, rgba(212, 231, 247, 0.7) 100%);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border-radius: 1.5rem; /* Rounded corners */
+        }
+
+        /* Weather Icon Colors */
+        .sunny-icon { color: #FFC107; } /* Amber/Yellow for Sun */
+        .rainy-icon { color: #64B5F6; } /* Light Blue for Rain */
+        .cloudy-icon { color: #B0BEC5; } /* Gray for Cloud */
+    </style>
+</head>
+<body class="text-body">
+
+    <!-- Navbar -->
+    <nav class="p-4 p-sm-3 d-flex justify-content-between align-items-center mx-auto" style="max-width: 1200px;">
+        <div class="fs-4 fw-bold text-dark">FORECAST.IO</div>
+        <div class="d-flex space-x-4">
+            <a href="#" class="text-secondary text-decoration-none me-3 hover-primary">HOME</a>
+            <a href="#" class="text-secondary text-decoration-none me-3 d-none d-sm-block hover-primary">ABOUT</a>
+            <a href="#" class="text-secondary text-decoration-none d-none d-sm-block hover-primary">CONTACT</a>
+        </div>
+        <button class="btn btn-light border-secondary-subtle btn-sm shadow-sm" style="border-radius: 0.5rem;">
+            LOG IN
+        </button>
+    </nav>
+
+    <!-- Main Hero Section - Styled based on Image 1 -->
+    <main class="d-flex align-items-center justify-content-center" style="min-height: 80vh; padding: 1rem;">
+        <div class="hero-section p-4 p-sm-5 w-100 shadow-lg row m-0" style="max-width: 1200px;">
+
+            <!-- Left Content Area -->
+            <div class="col-lg-6 col-12 mb-4 mb-lg-0">
+                <h1 class="display-3 fw-bolder text-dark lh-1 mb-3">
+                    WEATHER <span class="d-block">FORECAST</span>
+                </h1>
+                <p class="text-secondary mb-5" style="max-width: 400px;">
+                    Instantly view the current temperature and condition for major cities by selecting from the dropdown below. This uses a structured data array as per the project requirements.
+                </p>
+
+                <!-- City Selection and Interactive Output (Based on Image 2 requirement) -->
+                <div class="p-4 bg-white rounded-4 shadow-sm border border-light">
+                    <h2 class="h5 fw-semibold mb-3">Select a City</h2>
+                    
+                    <select id="city-select" class="form-select p-3 mb-4 border border-secondary-subtle" style="border-radius: 0.5rem;">
+                        <option value="">-- Choose a City --</option>
+                        <option value="Dhaka">Dhaka</option>
+                        <option value="Sylhet">Sylhet</option>
+                        <option value="Khulna">Khulna</option>
+                    </select>
+
+                    <div id="weather-output" class="text-center p-4 border border-dashed border-secondary-subtle rounded-3 min-h-[100px] d-flex align-items-center justify-content-center" style="min-height: 100px; border-style: dashed !important;">
+                        <p class="text-secondary fst-italic mb-0">Select a city to see the forecast.</p>
+                    </div>
+
+                    <div id="warning-message" class="text-danger mt-2 d-none p-2 bg-danger-subtle rounded-3 border border-danger-subtle">
+                        Please select a city to view the forecast.
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Visual/Icon Area -->
+            <div id="visual-area" class="col-lg-6 col-12 d-flex align-items-center justify-content-center justify-content-lg-end" style="min-height: 300px;">
+                <!-- Large default icon/visual from Image 1 (Using Bootstrap Icons fallback) -->
+                <i class="bi bi-cloud-sun-fill text-warning opacity-75" style="font-size: 10rem;"></i>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Bootstrap 5 JavaScript Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <select id="city-select">
+    <option value="">-- Select City --</option>
+    <option value="Dhaka">Dhaka</option>
+    <option value="Sylhet">Sylhet</option>
+    <option value="Khulna">Khulna</option>
+</select>
+
+<p id="warning" style="color:red; display:none;">Please select a city!</p>
+
+<div id="output"></div>
+<div id="image-area"></div>
+
+<script src="index.js">
+    
+</script>
+
+
+
+</body>
+</html>
